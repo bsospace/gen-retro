@@ -37,7 +37,7 @@ const createPDFTemplate = (formData: RetrospectiveData) => {
           <div style="font-weight: bold; margin-bottom: 10px;">(บทเรียนที่ได้เรียนรู้) Lessons Learned</div>
           <div style="min-height: 200px;" class="whitespace-pre-wrap">${formData.lessonsLearned || ''}</div>
         </div>
-        <div style="flex: ; border: 1px solid #000; padding: 15px;">
+        <div style="flex: 0.5 ; border: 1px solid #000; padding: 15px;">
           <div style="font-weight: bold; margin-bottom: 10px;">(เรื่องอื่นๆ) Other</div>
           <div style="min-height: 200px;" class="whitespace-pre-wrap">${formData.other || ''}</div>
         </div>
