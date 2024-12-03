@@ -16,28 +16,28 @@ const createPDFTemplate = (formData: RetrospectiveData) => {
         </div>
       </div>
       
-      <div style="border: 1px solid #000; padding: 15px;">
+      <div style="border: 1px solid #000; padding: 0px 15px 0px 15px;">
         <div style="font-weight: bold; margin-bottom: 10px;">(สิ่งที่ดำเนินไปได้ดี) Things That Went Well</div>
         <div style="min-height: 200px;" class="whitespace-pre-wrap">${formData.wentWell || ''}</div>
       </div>
       
       <div style="display: flex;">
-        <div style="flex: 1; border: 1px solid #000; padding: 15px;">
+        <div style="flex: 1; border: 1px solid #000; padding: 0px 15px 0px 15px;">
           <div style="font-weight: bold; margin-bottom: 10px;">(สิ่งที่ควรจะทำให้ดีกว่านี้) Things That Could Have Gone Better</div>
           <div style="min-height: 200px;" class="whitespace-pre-wrap">${formData.couldImprove || ''}</div>
         </div>
-        <div style="flex: 1; border: 1px solid #000; padding: 15px;">
+        <div style="flex: 1; border: 1px solid #000; padding: 0px 15px 0px 15px;">
           <div style="font-weight: bold; margin-bottom: 10px;">(สิ่งที่ทำให้ประหลาดใจ) Things That Surprised Us</div>
           <div style="min-height: 200px;" class="whitespace-pre-wrap">${formData.surprised || ''}</div>
         </div>
       </div>
       
       <div style="display: flex;">
-        <div style="flex: 1.5; border: 1px solid #000; padding: 15px;">
+        <div style="flex: 1.5; border: 1px solid #000; padding: 0px 15px 0px 15px;">
           <div style="font-weight: bold; margin-bottom: 10px;">(บทเรียนที่ได้เรียนรู้) Lessons Learned</div>
           <div style="min-height: 200px;" class="whitespace-pre-wrap">${formData.lessonsLearned || ''}</div>
         </div>
-        <div style="flex:0.5; border: 1px solid #000; padding: 15px;">
+        <div style="flex:0.5; border: 1px solid #000; padding: 0px 15px 0px 15px;">
           <div style="font-weight: bold; margin-bottom: 10px;">(เรื่องอื่นๆ) Other</div>
           <div style="min-height: 200px;" class="whitespace-pre-wrap">${formData.other || ''}</div>
         </div>
@@ -83,7 +83,7 @@ export const downloadPDF = async (formData: RetrospectiveData) => {
     });
     
     pdf.addImage(imgData, 'PNG', 0, 0, 800, 965);
-    pdf.save(`retrospective_${formData.teamName}_${formData.date}-T${formData.teamName}.pdf`);
+    pdf.save(`retrospective_${formData.teamName}_${formData.date}_T${formData.teamName}.pdf`);
   } finally {
     document.body.removeChild(template);
   }
