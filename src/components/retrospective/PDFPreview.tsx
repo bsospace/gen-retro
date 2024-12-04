@@ -22,7 +22,7 @@ export const PDFPreview: React.FC<PDFPreviewProps> = ({ previewUrl }) => {
         <CardTitle>PDF Preview</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="aspect-[1/1.4] w-full overflow-hidden rounded-lg border">
+        <div className="w-full overflow-hidden rounded-lg border">
           <img 
             src={previewUrl} 
             alt="PDF Preview" 
