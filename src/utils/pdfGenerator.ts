@@ -11,7 +11,7 @@ const createPDFTemplate = (formData: RetrospectiveData) => {
         <div style="text-align: right;">
           ทีม: ${formData.teamName || '..........'}
           ชื่อ: ${formData.name || '..........'}
-          วันที่: ${formData.date || '..........'}
+          วันที่: ${new Date(formData.date).toLocaleDateString("th-TH", { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'}) || '..........'}
           วงรอบที่: ${formData.cycleNumber || '..........'}
         </div>
       </div>
