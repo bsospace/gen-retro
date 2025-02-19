@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RetrospectiveForm } from '@/components/retrospective/RetrospectiveForm';
 import { RetrospectiveTextSections } from '@/components/retrospective/RetrospectiveTextSections';
 import { PDFPreview } from '@/components/retrospective/PDFPreview';
@@ -9,10 +11,12 @@ import { ClipboardList, Download } from 'lucide-react';
 import { generatePDFPreview, downloadPDF } from '@/utils/pdfGenerator';
 
 function App() {
+  const { t, i18n } = useTranslation();
   const [formData, setFormData] = useState<RetrospectiveData>({
     teamName: '',
     name: '',
     date: '',
+    sprintNumber: '',
     cycleNumber: '',
     wentWell: '',
     couldImprove: '',
@@ -40,13 +44,26 @@ function App() {
 
   return (
     <div className="container mx-auto p-4 min-h-screen min-w-full bg-gray-50 dark:bg-gray-900">
+      {/* Language Selector */}
+      <div className="flex justify-end mb-4">
+        <Select value={i18n.language} onValueChange={(value) => i18n.changeLanguage(value)}>
+          <SelectTrigger className="w-36">
+            <SelectValue placeholder="Select Language" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="en">English</SelectItem>
+            <SelectItem value="th">ไทย</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-[2000px] mx-auto">
         {/* Form Section */}
         <Card>
           <CardHeader className="text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
               <ClipboardList className="h-8 w-8 text-primary" />
-              <CardTitle className="text-3xl font-bold">SCRUM Retrospective</CardTitle>
+              <CardTitle className="text-3xl font-bold">{t('title')}</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
@@ -64,7 +81,7 @@ function App() {
                 disabled={!formData.teamName || !formData.name}
                 className="w-full"
               >
-                Generate Preview
+                {t('generatePreview')}
               </Button>
               {pdfPreviewUrl && (
                 <Button 
@@ -73,7 +90,7 @@ function App() {
                   variant="outline"
                 >
                   <Download className="mr-2 h-4 w-4" />
-                  Download PDF
+                  {t('downloadPDF')}
                 </Button>
               )}
             </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Textarea } from '@/components/ui/textarea';
 import { RetrospectiveData } from '@/types/retrospective';
 
@@ -11,55 +12,57 @@ export const RetrospectiveTextSections: React.FC<RetrospectiveTextSectionsProps>
   formData,
   onInputChange,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="space-y-4 mt-4">
       <div className="space-y-2">
-        <label className="text-sm font-medium">What went well?</label>
+        <label className="text-sm font-medium">{t('wentWell')}</label>
         <Textarea
           name="wentWell"
           value={formData.wentWell}
           onChange={onInputChange}
-          placeholder="Enter what went well during the sprint"
+          placeholder={t('wentWellPlaceholder')}
           className="min-h-[100px]"
         />
       </div>
       <div className="space-y-2">
-        <label className="text-sm font-medium">What could be improved?</label>
+        <label className="text-sm font-medium">{t('couldImprove')}</label>
         <Textarea
           name="couldImprove"
           value={formData.couldImprove}
           onChange={onInputChange}
-          placeholder="Enter what could be improved"
+          placeholder={t('couldImprovePlaceholder')}
           className="min-h-[100px]"
         />
       </div>
       <div className="space-y-2">
-        <label className="text-sm font-medium">What surprised us?</label>
+        <label className="text-sm font-medium">{t('surprised')}</label>
         <Textarea
           name="surprised"
           value={formData.surprised}
           onChange={onInputChange}
-          placeholder="Enter what surprised the team"
+          placeholder={t('surprisedPlaceholder')}
           className="min-h-[100px]"
         />
       </div>
       <div className="space-y-2">
-        <label className="text-sm font-medium">Lessons learned</label>
+        <label className="text-sm font-medium">{t('lessonsLearned')}</label>
         <Textarea
           name="lessonsLearned"
           value={formData.lessonsLearned}
           onChange={onInputChange}
-          placeholder="Enter lessons learned"
+          placeholder={t('lessonsLearnedPlaceholder')}
           className="min-h-[100px]"
         />
       </div>
       <div className="space-y-2">
-        <label className="text-sm font-medium">Other comments</label>
+        <label className="text-sm font-medium">{t('other')}</label>
         <Textarea
           name="other"
           value={formData.other}
           onChange={onInputChange}
-          placeholder="Enter any other comments"
+          placeholder={t('otherPlaceholder')}
           className="min-h-[100px]"
         />
       </div>

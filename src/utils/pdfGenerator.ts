@@ -3,16 +3,24 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
 const createPDFTemplate = (formData: RetrospectiveData) => {
+  let sprintCycleSection = "";
+  if (formData.sprintNumber || formData.cycleNumber) {
+    sprintCycleSection = `
+    ${formData.cycleNumber ? `Cycle: ${formData.cycleNumber}` : ""}
+      ${formData.sprintNumber ? `Sprint: ${formData.sprintNumber}` : ""} 
+    `;
+  }
+
   const template = document.createElement('div');
   template.innerHTML = `
     <div id="pdf-template" style="width: 794px; height: 1123px; padding: 40px; font-family: 'TH Sarabun New', Arial, sans-serif;">
-      <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+      <div style="display: flex; justify-content: space-between; margin-bottom: 18px;">
         <h1 style="margin: 0; font-size: 24px;">Sprint Retrospective Report</h1>
         <div style="text-align: right;">
           ทีม: ${formData.teamName || '..........'}
           ชื่อ: ${formData.name || '..........'}
-          วันที่: ${new Date(formData.date).toLocaleDateString("th-TH", { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long'}) || '..........'}
-          วงรอบที่: ${formData.cycleNumber || '..........'}
+          วันที่: ${new Date(formData.date).toLocaleDateString("th-TH", { year: 'numeric', month: 'long', day: 'numeric'}) || '..........'}
+          ${sprintCycleSection}
         </div>
       </div>
       
@@ -75,7 +83,7 @@ export const downloadPDF = async (formData: RetrospectiveData) => {
       logging: false,
     });
     
-    const imgData = canvas.toDataURL('image/png', 0.9); // Slightly higher quality
+    const imgData = canvas.toDataURL('image/png', 0.9);
     
     const pdf = new jsPDF({
       orientation: 'portrait',
@@ -85,7 +93,16 @@ export const downloadPDF = async (formData: RetrospectiveData) => {
     
     pdf.addImage(imgData, 'PNG', 0, 0, 794, 1123, '', 'FAST');
     
-    pdf.save(`retrospective_${formData.teamName}_${formData.date}_T${formData.teamName}.pdf`);
+    let sprintCycleSection = "";
+    if (formData.sprintNumber && formData.cycleNumber) {
+      sprintCycleSection = `_${formData.cycleNumber}-${formData.sprintNumber}`;
+    } else if (formData.sprintNumber) {
+      sprintCycleSection = `_Sprint ${formData.sprintNumber}`;
+    } else if (formData.cycleNumber) {
+      sprintCycleSection = `_Cycle ${formData.cycleNumber}`;
+    }
+
+    pdf.save(`retrospective${sprintCycleSection}_${formData.teamName}_${formData.date}.pdf`);
   } finally {
     document.body.removeChild(template);
   }
