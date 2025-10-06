@@ -33,6 +33,12 @@ i18n
             sprintNumber: "Sprint Number",
             sprintNumberPlaceholder: "Enter sprint number",
             disclaimerNote: "*Some features may not work as expected on Mobile.",
+            saveJournal: "Save Journal",
+            loginRequired: "Login Required",
+            loginPromptMessage: "You need to login to save your journal. Your current data will be preserved.",
+            loginButton: "Login",
+            cancelButton: "Cancel",
+            dataSaved: "Your data is saved locally and will be available when you login.",
             }
         },
         th: {
@@ -63,6 +69,12 @@ i18n
             sprintNumber: "สปรินต์ที่",
             sprintNumberPlaceholder: "กรอกเลขสปรินต์",
             disclaimerNote: "*บางฟีเจอร์อาจทำงานไม่สมบูรณ์บนมือถือ",
+            saveJournal: "บันทึก Journal",
+            loginRequired: "ต้องเข้าสู่ระบบ",
+            loginPromptMessage: "คุณต้องเข้าสู่ระบบเพื่อบันทึก journal ข้อมูลที่คุณกรอกจะถูกเก็บไว้",
+            loginButton: "เข้าสู่ระบบ",
+            cancelButton: "ยกเลิก",
+            dataSaved: "ข้อมูลของคุณถูกบันทึกไว้ในเครื่องและจะพร้อมใช้งานเมื่อคุณเข้าสู่ระบบ",
             }
         }
     },
