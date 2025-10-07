@@ -1,13 +1,15 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { FileText } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Download, FileText } from 'lucide-react';
 
 interface PDFPreviewProps {
   previewUrl: string;
+  onDownload?: () => void;
 }
 
-export const PDFPreview: React.FC<PDFPreviewProps> = ({ previewUrl }) => {
+export const PDFPreview: React.FC<PDFPreviewProps> = ({ previewUrl, onDownload }) => {
   const { t } = useTranslation();
 
   if (!previewUrl) {
@@ -34,8 +36,18 @@ export const PDFPreview: React.FC<PDFPreviewProps> = ({ previewUrl }) => {
           />
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex flex-col items-start gap-2">
         <span className='text-sm text-red-600'>{t('disclaimerNote')}</span>
+        {onDownload && (
+          <Button 
+            onClick={onDownload}
+            className="w-full"
+            variant="outline"
+          >
+            <Download className="mr-2 h-4 w-4" />
+            {t('downloadPDF')}
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );
