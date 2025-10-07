@@ -24,8 +24,20 @@ export const PDFPreview: React.FC<PDFPreviewProps> = ({ previewUrl, onDownload }
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>{t('pdfPreviewTitle')}</CardTitle>
+      <CardHeader className="space-y-0">
+        <div className="flex w-full items-center justify-between gap-4">
+          <CardTitle className="truncate">{t('pdfPreviewTitle')}</CardTitle>
+          {onDownload && (
+            <Button 
+              onClick={onDownload}
+              variant="outline"
+              className="flex-shrink-0"
+            >
+              <Download className="mr-2 h-4 w-4" />
+              {t('downloadPDF')}
+            </Button>
+          )}
+        </div>
       </CardHeader>
       <CardContent>
         <div className="w-full overflow-hidden rounded-lg border">
@@ -36,18 +48,8 @@ export const PDFPreview: React.FC<PDFPreviewProps> = ({ previewUrl, onDownload }
           />
         </div>
       </CardContent>
-      <CardFooter className="flex flex-col items-start gap-2">
+      <CardFooter>
         <span className='text-sm text-red-600'>{t('disclaimerNote')}</span>
-        {onDownload && (
-          <Button 
-            onClick={onDownload}
-            className="w-full"
-            variant="outline"
-          >
-            <Download className="mr-2 h-4 w-4" />
-            {t('downloadPDF')}
-          </Button>
-        )}
       </CardFooter>
     </Card>
   );

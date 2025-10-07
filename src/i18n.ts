@@ -39,6 +39,16 @@ i18n
             loginButton: "Login",
             cancelButton: "Cancel",
             dataSaved: "Your data is saved locally and will be available when you login.",
+            filenameDialogTitle: "Choose file name",
+            filenameDialogDescription: "Update the PDF name before downloading. We'll make sure it ends with .pdf.",
+            filenameLabel: "File name",
+            confirmDownloadButton: "Download",
+            downloadingLabel: "Downloading...",
+            downloadErrorTitle: "Download failed",
+            downloadErrorMessage: "We couldn't download your PDF. Please try again.",
+            postDownloadDialogTitle: "Save your journal?",
+            postDownloadDialogDescription: "Log in to save this journal to your account. We'll keep your current data ready.",
+            continueWithoutLogin: "Continue without login",
             }
         },
         th: {
@@ -75,6 +85,16 @@ i18n
             loginButton: "เข้าสู่ระบบ",
             cancelButton: "ยกเลิก",
             dataSaved: "ข้อมูลของคุณถูกบันทึกไว้ในเครื่องและจะพร้อมใช้งานเมื่อคุณเข้าสู่ระบบ",
+            filenameDialogTitle: "เลือกชื่อไฟล์",
+            filenameDialogDescription: "แก้ไขชื่อไฟล์ PDF ก่อนดาวน์โหลด ระบบจะบันทึกเป็น .pdf ให้อัตโนมัติ",
+            filenameLabel: "ชื่อไฟล์",
+            confirmDownloadButton: "ดาวน์โหลด",
+            downloadingLabel: "กำลังดาวน์โหลด...",
+            downloadErrorTitle: "ดาวน์โหลดไม่สำเร็จ",
+            downloadErrorMessage: "ไม่สามารถดาวน์โหลดไฟล์ PDF ได้ กรุณาลองใหม่อีกครั้ง",
+            postDownloadDialogTitle: "ต้องการบันทึก Journal ไหม?",
+            postDownloadDialogDescription: "เข้าสู่ระบบเพื่อบันทึก journal นี้ไว้ในบัญชีของคุณ ระบบจะเก็บข้อมูลที่กรอกไว้ให้พร้อม",
+            continueWithoutLogin: "ดำเนินการต่อโดยไม่เข้าสู่ระบบ",
             }
         }
     },

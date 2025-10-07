@@ -2,6 +2,53 @@ import { RetrospectiveData } from '@/types/retrospective';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
+const INVALID_FILENAME_CHARS = /[\\/:*?"<>|]/g;
+
+const sanitizeFilenameSegment = (segment: string, fallback: string) => {
+  const trimmed = segment?.toString().trim();
+  if (!trimmed) {
+    return fallback;
+  }
+
+  return trimmed
+    .replace(INVALID_FILENAME_CHARS, '-')
+    .replace(/\s+/g, '-');
+};
+
+const formatDateSegment = (dateValue: string) => {
+  if (!dateValue) {
+    return 'no-date';
+  }
+
+  const parsed = new Date(dateValue);
+  if (Number.isNaN(parsed.getTime())) {
+    return sanitizeFilenameSegment(dateValue, 'no-date');
+  }
+
+  return parsed.toISOString().split('T')[0];
+};
+
+const buildSprintCycleSuffix = (formData: RetrospectiveData) => {
+  if (formData.sprintNumber && formData.cycleNumber) {
+    return `_${formData.cycleNumber}-${formData.sprintNumber}`;
+  }
+  if (formData.sprintNumber) {
+    return `_Sprint-${formData.sprintNumber}`;
+  }
+  if (formData.cycleNumber) {
+    return `_Cycle-${formData.cycleNumber}`;
+  }
+  return '';
+};
+
+export const getDefaultPdfFileName = (formData: RetrospectiveData) => {
+  const sprintCycleSection = buildSprintCycleSuffix(formData);
+  const teamSegment = sanitizeFilenameSegment(formData.teamName, 'team');
+  const dateSegment = formatDateSegment(formData.date);
+
+  return `retrospective${sprintCycleSection}_${teamSegment}_${dateSegment}.pdf`;
+};
+
 const createPDFTemplate = (formData: RetrospectiveData) => {
   let sprintCycleSection = "";
   if (formData.sprintNumber || formData.cycleNumber) {
@@ -72,7 +119,7 @@ export const generatePDFPreview = async (formData: RetrospectiveData): Promise<s
   }
 };
 
-export const downloadPDF = async (formData: RetrospectiveData) => {
+export const downloadPDF = async (formData: RetrospectiveData, providedFileName?: string) => {
   const template = createPDFTemplate(formData);
   document.body.appendChild(template);
   
@@ -93,16 +140,16 @@ export const downloadPDF = async (formData: RetrospectiveData) => {
     
     pdf.addImage(imgData, 'PNG', 0, 0, 794, 1123, '', 'FAST');
     
-    let sprintCycleSection = "";
-    if (formData.sprintNumber && formData.cycleNumber) {
-      sprintCycleSection = `_${formData.cycleNumber}-${formData.sprintNumber}`;
-    } else if (formData.sprintNumber) {
-      sprintCycleSection = `_Sprint ${formData.sprintNumber}`;
-    } else if (formData.cycleNumber) {
-      sprintCycleSection = `_Cycle ${formData.cycleNumber}`;
-    }
+    const defaultName = getDefaultPdfFileName(formData);
+    const rawName = providedFileName?.trim() || defaultName;
+    const sanitizedName = rawName
+      .replace(INVALID_FILENAME_CHARS, '-')
+      .replace(/\s+/g, '-');
+    const finalName = sanitizedName.toLowerCase().endsWith('.pdf')
+      ? sanitizedName
+      : `${sanitizedName}.pdf`;
 
-    pdf.save(`retrospective${sprintCycleSection}_${formData.teamName}_${formData.date}.pdf`);
+    pdf.save(finalName);
   } finally {
     document.body.removeChild(template);
   }
